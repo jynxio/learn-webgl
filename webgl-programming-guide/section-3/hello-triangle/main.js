@@ -29,8 +29,13 @@ function main () {
     gl.bindBuffer( gl.ARRAY_BUFFER, vertex_buffer );
 
     /* 向缓冲区对象写入数据（向绑定在ARRAY_BUFFER中的缓冲区对象写入数据） */
-    const vertex_count = 3;
-    const vertices = new Float32Array( [ 0, 0.5, - 0.5, - 0.5, 0.5, - 0.5 ] );
+    const vertex_count = 4;
+    const vertices = new Float32Array( [
+        - 0.5, 0.5, 0.0,
+        - 0.5, - 0.5, 0,
+        0.5, 0.5, 0,
+        0.5, - 0.5, 0
+    ] );
 
     gl.bufferData( gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW );
 
@@ -38,7 +43,7 @@ function main () {
     const a_position = gl.getAttribLocation( gl.program, "a_Position" );
 
     /* 将缓冲区对象派送给a_Position变量（将绑定在ARRAY_BUFFER中的缓冲区对象的内存地址分配给a_Position变量） */
-    gl.vertexAttribPointer( a_position, 2, gl.FLOAT, false, 0, 0 );
+    gl.vertexAttribPointer( a_position, 3, gl.FLOAT, false, 0, 0 );
 
     /* 批准将缓冲区对象派送给a_Position变量 */
     gl.enableVertexAttribArray( a_position );
@@ -48,6 +53,6 @@ function main () {
     gl.clear( gl.COLOR_BUFFER_BIT );
 
     /* 绘制一个点 */
-    gl.drawArrays( gl.TRIANGLES, 0, vertex_count );
+    gl.drawArrays( gl.TRIANGLE_FAN, 0, vertex_count );
 
 }
