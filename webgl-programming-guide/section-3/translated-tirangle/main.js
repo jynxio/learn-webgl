@@ -1,8 +1,9 @@
 const VSHADER_SOURCE = `
     attribute vec4 a_Position;
+    uniform vec4 u_Translation;
 
     void main () {
-        gl_Position = a_Position; // 设置坐标
+        gl_Position = a_Position + u_Translation; // 设置坐标
     }
 `;
     const FSHADER_SOURCE = `
@@ -21,6 +22,15 @@ function main () {
 
     /* 初始化着色器 */
     initShaders( gl, VSHADER_SOURCE, FSHADER_SOURCE );
+
+    /* 向顶点着色器传递偏移量 */
+    const translation_x = 0.3;
+    const translation_y = 0.3;
+    const translation_z = 0;
+
+    const u_translation = gl.getUniformLocation( gl.program, "u_Translation" );
+
+    gl.uniform4f( u_translation, translation_x, translation_y, translation_z, 0 );
 
     /* 创建缓冲区对象 */
     const vertex_buffer = gl.createBuffer();
