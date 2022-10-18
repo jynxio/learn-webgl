@@ -23,7 +23,7 @@ function main () {
     /* 初始化着色器 */
     initShaders( gl, VSHADER_SOURCE, FSHADER_SOURCE );
 
-    /* 向顶点着色器传递偏移量 */
+    /* 向顶点着色器传递旋转矩阵 */
     const radian = Math.PI / 3;
     const cos_b = Math.cos( radian );
     const sin_b = Math.sin( radian );
@@ -36,7 +36,6 @@ function main () {
     const u_xform_matrix = gl.getUniformLocation( gl.program, "u_xformMatrix" );
 
     gl.uniformMatrix4fv( u_xform_matrix, false, xform_matrix );
-
 
     /* 创建缓冲区对象 */
     const vertex_buffer = gl.createBuffer();
